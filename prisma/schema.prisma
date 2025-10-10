@@ -1,0 +1,134 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  profile  Profile?
+  username String   @db.VarChar(100)
+  email    String   @db.VarChar(100)
+  password String   @db.VarChar(255)
+  Team     Team[]
+
+  @@map("users")
+}
+
+model Profile {
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int         @unique
+  contact     Contact?
+  experience  Experience?
+  post        Post[]
+  firstname   String      @db.VarChar(100)
+  lastname    String      @db.VarChar(100)
+  about       String      @db.Text
+  image       String      @db.Text
+  jobposition String      @db.VarChar(255)
+
+  @@map("profiles")
+}
+
+model Contact {
+  profile   Profile @relation(fields: [profileId], references: [userId], onDelete: Cascade)
+  profileId Int     @unique
+  instagram String? @db.VarChar(255)
+  facebook  String? @db.VarChar(255)
+  linkeding String? @db.VarChar(255)
+  twitter   String? @db.VarChar(255)
+
+  @@map("contact")
+}
+
+model Experience {
+  profile     Profile @relation(fields: [profileId], references: [userId], onDelete: Cascade)
+  profileId   Int     @unique
+  name        String  @db.VarChar(255)
+  description String  @db.VarChar(255)
+
+  @@map("experience")
+}
+
+model Post {
+  id          Int        @id @default(autoincrement())
+  category    Category[]
+  title       String     @db.VarChar(100)
+  meta        String     @db.VarChar(255)
+  content     String     @db.Text
+  description String     @db.Text
+  profile     Profile    @relation(fields: [profileId], references: [userId], onDelete: Cascade)
+  profileId   Int
+  view        Int        @default(0)
+  created     DateTime   @default(now())
+
+  @@map("posts")
+}
+
+model Category {
+  id          Int    @id @default(autoincrement())
+  description String @db.VarChar(255)
+  post        Post[]
+
+  @@map("category")
+}
+
+model Company {
+  id         Int    @id @default(autoincrement())
+  name       String @db.VarChar(100)
+  profile    String @db.Text
+  background String @db.Text
+  meta       String @db.VarChar(255)
+  about      String @db.Text
+  video      String @db.Text
+
+  detail   DetailCompany?
+  currency Currency?
+  type     CompanyType[]
+
+  @@map("company")
+}
+
+model DetailCompany {
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId Int      @unique
+  created   DateTime @updatedAt
+  web       String
+  address   String   @db.VarChar(100)
+  about     String   @db.VarChar(255)
+
+  @@map("detailcompany")
+}
+
+model CompanyType {
+  id      Int       @id @default(autoincrement())
+  company Company[]
+  name    String    @db.VarChar(100)
+
+  @@map("companytype")
+}
+
+model Currency {
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId Int     @unique
+  amount    Int     @default(0)
+
+  @@map("currency")
+}
+
+model Team {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(100)
+  user User[]
+
+  @@map("teams")
+}
