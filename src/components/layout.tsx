@@ -50,7 +50,7 @@ export default function MainLayout({ children }: { children: ReactNode }): any {
             style={{ flex: 2, minWidth: 0 }}
           />
           <Flex gap={10}>
-            <Button size="large" onClick={() => router.push("/login")}>
+            <Button size="large" onClick={() => router.push("/signin")}>
               Login
             </Button>
             <Button size="large" onClick={() => router.push("/register")}>

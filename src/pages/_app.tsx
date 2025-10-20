@@ -5,7 +5,7 @@ import SessionProviders from "@/components/SessionProvider";
 
 export default function App({ Component, pageProps }: AppProps) {
   return <MainLayout>
-      <SessionProviders session={null}>
+      <SessionProviders>
           <Component {...pageProps} />
       </SessionProviders>
   </MainLayout>

@@ -11,7 +11,8 @@ const nextConfig: NextConfig = {
     trailingSlash: true,
     experimental: {
       globalNotFound: true,
-    }
+    },
+    allowedDevOrigins: ['http://http://192.168.200.111/:3000'],
 };
 
 export default nextConfig;
