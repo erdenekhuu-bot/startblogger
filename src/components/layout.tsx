@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode } from "react";
+import { JSX, ReactNode } from "react";
 import { Layout, Menu, Button, Flex } from "antd";
 import { headerStyles, contentStyle } from "@/styles/header";
 import { useRouter } from "next/navigation";
@@ -7,7 +7,11 @@ import SessionProviders from "./SessionProvider";
 
 const { Header, Content, Footer } = Layout;
 
-export default function MainLayout({ children }: { children: ReactNode }): any {
+export default async function MainLayout({
+  children,
+}: {
+  children: ReactNode;
+}): Promise<JSX.Element> {
   const router = useRouter();
 
   return (

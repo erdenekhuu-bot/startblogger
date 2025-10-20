@@ -1,6 +1,5 @@
 "use client"
 
-// @ts-ignore
 import {SessionProvider} from "next-auth/react";
 import {ReactNode} from "react";
 
