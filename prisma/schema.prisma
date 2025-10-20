@@ -22,6 +22,7 @@ model User {
   Team     Team[]
 
   @@map("users")
+  @@unique([email])
 }
 
 model Profile {
@@ -33,7 +34,7 @@ model Profile {
   firstname   String      @db.VarChar(100)
   lastname    String      @db.VarChar(100)
   about       String      @db.Text
-  image       String      @db.Text
+  image       String?      @db.Text
   jobposition String      @db.VarChar(255)
 
   @@map("profiles")
