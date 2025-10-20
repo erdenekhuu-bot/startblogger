@@ -51,7 +51,7 @@ export default function MainLayout({ children }: { children: ReactNode }): any {
           />
           <Flex gap={10}>
             <Button size="large" onClick={() => router.push("/signin")}>
-              Login
+              Sign in
             </Button>
             <Button size="large" onClick={() => router.push("/register")}>
               Register
