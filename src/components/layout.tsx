@@ -1,19 +1,19 @@
 "use client";
-import { JSX, ReactNode } from "react";
-import { Layout, Menu, Button, Flex } from "antd";
+import { ReactNode } from "react";
+import { Layout, Menu } from "antd";
 import { headerStyles, contentStyle } from "@/styles/header";
 import { useRouter } from "next/navigation";
 import SessionProviders from "./SessionProvider";
+import {SignUser} from "@/components/loginwindow/signuser";
 
 const { Header, Content, Footer } = Layout;
 
-export default async function MainLayout({
+export default function MainLayout({
   children,
 }: {
   children: ReactNode;
-}): Promise<JSX.Element> {
+}) {
   const router = useRouter();
-
   return (
     <SessionProviders>
       <Layout>
@@ -53,14 +53,7 @@ export default async function MainLayout({
             ]}
             style={{ flex: 2, minWidth: 0 }}
           />
-          <Flex gap={10}>
-            <Button size="large" onClick={() => router.push("/signin")}>
-              Sign in
-            </Button>
-            <Button size="large" onClick={() => router.push("/register")}>
-              Register
-            </Button>
-          </Flex>
+          <SignUser />
         </Header>
         <Content style={{ padding: "0 48px" }}>
           <div style={contentStyle}>{children}</div>

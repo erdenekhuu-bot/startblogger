@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
     experimental: {
       globalNotFound: true,
     },
-    allowedDevOrigins: ['http://http://192.168.200.111/:3000'],
+    allowedDevOrigins: ['http://localhost:3000'],
 };
 
 export default nextConfig;

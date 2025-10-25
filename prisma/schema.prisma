@@ -21,8 +21,8 @@ model User {
   password String   @db.VarChar(255)
   Team     Team[]
 
-  @@map("users")
   @@unique([email])
+  @@map("users")
 }
 
 model Profile {
@@ -34,7 +34,7 @@ model Profile {
   firstname   String      @db.VarChar(100)
   lastname    String      @db.VarChar(100)
   about       String      @db.Text
-  image       String?      @db.Text
+  image       String?     @db.Text
   jobposition String      @db.VarChar(255)
 
   @@map("profiles")
@@ -61,16 +61,15 @@ model Experience {
 }
 
 model Post {
-  id          Int        @id @default(autoincrement())
-  category    Category[]
-  title       String     @db.VarChar(100)
-  meta        String     @db.VarChar(255)
-  content     String     @db.Text
-  description String     @db.Text
-  profile     Profile    @relation(fields: [profileId], references: [userId], onDelete: Cascade)
-  profileId   Int
-  view        Int        @default(0)
-  created     DateTime   @default(now())
+  id        Int        @id @default(autoincrement())
+  category  Category[]
+  title     String     @db.VarChar(100)
+  meta      String     @db.VarChar(255)
+  content   String     @db.Text
+  profile   Profile    @relation(fields: [profileId], references: [userId], onDelete: Cascade)
+  profileId Int
+  view      Int        @default(0)
+  created   DateTime   @default(now())
 
   @@map("posts")
 }

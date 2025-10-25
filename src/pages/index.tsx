@@ -7,7 +7,6 @@ import Image from "next/image";
 import banner from "../../public/banner.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { useSession } from "next-auth/react";
 
 
 const geistSans = Geist({
@@ -22,7 +21,6 @@ const geistMono = Geist_Mono({
 
 export default function Home() {
   const { t } = useTranslation();
-  
   return (
     <section className={`${geistSans} ${geistMono}`}>
       <Flex justify={"center"} align={"center"}>
