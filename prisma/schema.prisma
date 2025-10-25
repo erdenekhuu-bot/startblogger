@@ -65,6 +65,7 @@ model Post {
   category  Category[]
   title     String     @db.VarChar(100)
   meta      String     @db.VarChar(255)
+  metaImage String     @db.Text
   content   String     @db.Text
   profile   Profile    @relation(fields: [profileId], references: [userId], onDelete: Cascade)
   profileId Int

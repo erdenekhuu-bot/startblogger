@@ -27,7 +27,11 @@ export default async function handler(
       }
 
       case "GET": {
-        const users = await prisma.user.findMany();
+        const users = await prisma.user.findMany({
+          include: {
+            profile: true
+          }
+        });
         return res.status(200).json(users);
       }
 
