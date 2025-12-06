@@ -56,6 +56,7 @@ export default async function handler(
         content: String(content),
         metaImage: String(savedFilePaths),
         profileId: Number(profileId),
+        attribute: Number(categoryId),
         category: {
           connect: {
             id: Number(categoryId),

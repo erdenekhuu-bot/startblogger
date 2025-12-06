@@ -37,7 +37,7 @@ export function HomeBanner() {
     <section>
       <Flex justify="space-between">
         <section>
-          {otherBanner.map((item: any) => (
+          {otherBanner?.map((item: any) => (
             <div className="w-[300px] m-4">
               <div>
                 <Image
@@ -60,7 +60,7 @@ export function HomeBanner() {
         <div className="w-[400px]">
           <div>
             <Image
-              src={`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/images/${mainBanner.metaImage}`}
+              src={`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/images/${mainBanner?.metaImage}`}
             />
           </div>
           {mainBanner?.category?.map((item: any) => (
@@ -68,7 +68,7 @@ export function HomeBanner() {
               {item.name}
             </p>
           ))}
-          <p className="font-black text-2xl">{mainBanner.title}</p>
+          <p className="font-black text-2xl">{mainBanner?.title}</p>
           <p className="text-[#020B75] text-lg">
             {mainBanner?.profile?.user.username}
           </p>

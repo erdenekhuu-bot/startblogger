@@ -7,10 +7,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { page, pageSize } = req.query;
+  const { page, pageSize, filter } = req.query;
   const record = await prisma.post.findMany({
     skip: (Number(page) - 1) * Number(pageSize),
     take: Number(pageSize),
+    where: {
+      attribute: filter ? Number(filter) : {},
+    },
     include: {
       category: true,
       lang: true,
@@ -24,6 +27,10 @@ export default async function handler(
       view: "desc",
     },
   });
-  const total = await prisma.post.count();
+  const total = await prisma.post.count({
+    where: {
+      attribute: filter ? Number(filter) : {},
+    },
+  });
   return res.status(200).json({ success: true, record, total });
 }

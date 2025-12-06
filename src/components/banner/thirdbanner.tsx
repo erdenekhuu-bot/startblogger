@@ -6,7 +6,7 @@ export function ThirdBanner() {
   const [otherBanner, setOther] = useState([]);
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 10,
+    pageSize: 8,
     total: 0,
   });
   const detail = async () => {
@@ -29,7 +29,7 @@ export function ThirdBanner() {
   return (
     <div>
       <p className="text-3xl font-black text-[#020B75] my-4">Их уншсан</p>
-      {otherBanner.map((item: any, index: number) => (
+      {otherBanner?.map((item: any, index: number) => (
         <Flex style={{ marginTop: 10 }}>
           <Image src="itembanner.svg" />
           <p key={index} className="font-bold text-[#020B75] text-2xl">
