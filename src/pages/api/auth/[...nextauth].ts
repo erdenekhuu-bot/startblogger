@@ -22,6 +22,9 @@ export const authOptions: NextAuthOptions = {
 
         const user = await prisma.user.findFirst({
           where: { username },
+          include: {
+            profile: true,
+          },
         });
 
         if (!user) return null;
@@ -34,26 +37,34 @@ export const authOptions: NextAuthOptions = {
           id: user.id.toString(),
           username: user.username,
           email: user.email,
+          profile: user.profile,
         };
       },
     }),
   ],
+
   callbacks: {
     async jwt({ token, user }: any) {
-      if (user) (token.id = user.id), (token.username = user.username);
+      if (user)
+        (token.id = user.id),
+          (token.username = user.username),
+          (token.profile = user.profile);
       return token;
     },
+
     async session({ session, token }: any) {
-      if (token?.id)
+      if (token?.id) {
         (session.user.id = token.id as string),
           (session.user.username = token.username as string);
+        session.user.profile = token.profile;
+      }
       return session;
     },
   },
-  secret: "secret",
+  secret: process.env.SECRET,
   session: {
     strategy: "jwt",
-  }
+  },
 };
 
 export default NextAuth(authOptions);

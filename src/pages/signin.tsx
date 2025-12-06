@@ -7,18 +7,17 @@ import { useRouter } from "next/navigation";
 
 export default function Page() {
   const [form] = Form.useForm();
-  const router = useRouter()
+  const router = useRouter();
 
   const onFinish: FormProps["onFinish"] = async (values) => {
     const checkout = await signIn("Credentials", {
       username: values.username,
       password: values.password,
       callbackUrl: `/startup`,
-      
     });
-    console.log(checkout)
-    if(checkout?.ok){
-        router.push('/startup')
+    console.log(checkout);
+    if (checkout?.ok) {
+      router.push("/startup");
     }
   };
 

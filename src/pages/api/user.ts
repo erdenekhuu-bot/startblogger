@@ -18,19 +18,23 @@ export default async function handler(
           where: { username },
         });
         if (!checkout) {
-          const user=await prisma.user.create({
+          const user = await prisma.user.create({
             data: { username, email, password: hashedPassword },
           });
           return res.status(201).json(user.id);
         }
-        return res.status(403).json(-1)
+        return res.status(403).json(-1);
       }
 
       case "GET": {
         const users = await prisma.user.findMany({
           include: {
-            profile: true
-          }
+            profile: {
+              include: {
+                contact: true,
+              },
+            },
+          },
         });
         return res.status(200).json(users);
       }

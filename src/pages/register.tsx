@@ -8,7 +8,7 @@ import { ZUSTAND } from "@/zustand";
 export default function Page() {
   const [form] = Form.useForm();
   const router = useRouter();
-  const { gotoPage } = ZUSTAND();
+  const { getUserId } = ZUSTAND();
 
   const onFinish: FormProps["onFinish"] = async (values) => {
     const request = await fetch("/api/user", {
@@ -20,9 +20,9 @@ export default function Page() {
     });
     const response = await request.json();
     if (response > 0) {
+      getUserId(response);
       router.push("/profile");
     }
-    console.log(response, "already exist");
   };
 
   return (

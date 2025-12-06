@@ -5,12 +5,15 @@ import type { FormProps } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import { useSession } from "next-auth/react";
+
 const CkEditor = dynamic(() => import("@/components/CKEditor"), { ssr: false });
 
 export default function Page() {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
-
+  const { data: session } = useSession();
+  console.log(session);
   const [editorData, setEditorData] = useState<string>("");
   const [data, setData] = useState<string>("");
   const [fileList, setFileList] = useState<any[]>([]);
@@ -33,7 +36,7 @@ export default function Page() {
 
     const request = await fetch("/api/post/make", {
       method: "POST",
-      body: formData, 
+      body: formData,
     });
 
     const response = await request.json();
@@ -61,7 +64,7 @@ export default function Page() {
           <Upload
             onChange={handleUploadChange}
             fileList={fileList}
-            beforeUpload={() => false} // Prevent auto upload
+            beforeUpload={() => false}
             multiple
           >
             <Button icon={<UploadOutlined />}>Select Images</Button>

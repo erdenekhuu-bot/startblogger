@@ -4,9 +4,11 @@ import MainLayout from "@/components/layout";
 import SessionProviders from "@/components/SessionProvider";
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <MainLayout>
+  return (
+    <MainLayout>
       <SessionProviders>
-          <Component {...pageProps} />
+        <Component {...pageProps} />
       </SessionProviders>
-  </MainLayout>
+    </MainLayout>
+  );
 }

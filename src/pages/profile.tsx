@@ -3,15 +3,17 @@
 import { Button, Form, Input, Flex, message } from "antd";
 import type { FormProps } from "antd";
 import { useRouter } from "next/navigation";
+import { ZUSTAND } from "@/zustand";
 
 export default function Page() {
+  const { userId } = ZUSTAND();
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
   const router = useRouter();
   const onFinish: FormProps["onFinish"] = async (values) => {
     const merge = {
       ...values,
-      userId: 1,
+      userId,
     };
     const response = await fetch("/api/profile/register", {
       method: "post",
@@ -21,7 +23,7 @@ export default function Page() {
       },
     });
     const data = await response.json();
-    console.log(data);
+
     if (data.success) {
       message.success("Profile successfully registered");
       router.push("/");
@@ -57,12 +59,37 @@ export default function Page() {
           <Form.Item name="jobposition">
             <Input />
           </Form.Item>
+          <section>
+            <p className="my-2">Contact:</p>
+            <div>
+              <p>Instagram links</p>
+              <Form.Item name="instagram">
+                <Input />
+              </Form.Item>
+            </div>
+            <div>
+              <p>Facebook links</p>
+              <Form.Item name="facebook">
+                <Input />
+              </Form.Item>
+            </div>
+            <div>
+              <p>Linkeding links</p>
+              <Form.Item name="linkeding">
+                <Input />
+              </Form.Item>
+            </div>
+            <div>
+              <p>Twitter links</p>
+              <Form.Item name="twitter">
+                <Input />
+              </Form.Item>
+            </div>
+          </section>
 
-          <Form.Item>
-            <Button onClick={() => form.submit()} type="primary">
-              Log in
-            </Button>
-          </Form.Item>
+          <Button onClick={() => form.submit()} type="primary">
+            Save
+          </Button>
         </Form>
       </Flex>
     </section>

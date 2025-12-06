@@ -43,10 +43,10 @@ model Profile {
 model Contact {
   profile   Profile @relation(fields: [profileId], references: [userId], onDelete: Cascade)
   profileId Int     @unique
-  instagram String? @db.VarChar(255)
-  facebook  String? @db.VarChar(255)
-  linkeding String? @db.VarChar(255)
-  twitter   String? @db.VarChar(255)
+  instagram String? @db.VarChar(500)
+  facebook  String? @db.VarChar(500)
+  linkeding String? @db.VarChar(500)
+  twitter   String? @db.VarChar(500)
 
   @@map("contact")
 }
