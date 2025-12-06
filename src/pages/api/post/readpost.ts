@@ -13,10 +13,17 @@ export default async function handler(
     take: Number(pageSize),
     include: {
       category: true,
+      lang: true,
+      profile: {
+        select: {
+          user: true,
+        },
+      },
     },
     orderBy: {
-      view: "asc",
+      view: "desc",
     },
   });
-  return res.status(200).send(record);
+  const total = await prisma.post.count();
+  return res.status(200).json({ success: true, record, total });
 }

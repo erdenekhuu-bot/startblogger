@@ -9,5 +9,10 @@
   "home": "Home",
   "startup": "Startups",
   "ecosystem": "Ecosystem",
-  "footer": "Created by Ant UED"
+  "footer": "Created by Ant UED",
+  "blog_title": "Blog title",
+  "meta": "Blog meta",
+  "Upload_image": "Upload image",
+  "blog_content": "Blog content",
+  "category": "Category"
 }

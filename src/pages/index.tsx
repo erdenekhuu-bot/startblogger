@@ -1,12 +1,11 @@
 "use client";
 import { Geist, Geist_Mono } from "next/font/google";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
-import useTranslation from "@/hooks/useTranslation";
-import { Flex } from "antd";
+import { Flex, Layout } from "antd";
 import Image from "next/image";
 import banner from "../../public/banner.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { HomeBanner } from "@/components/banner/homebanner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,13 +18,14 @@ const geistMono = Geist_Mono({
 });
 
 export default function Home() {
-  const { t } = useTranslation();
   return (
-    <main className={`${geistSans} ${geistMono}`}>
+    <Layout className={`${geistSans} ${geistMono}`}>
       <Flex justify={"center"} align={"center"}>
         <Image src={banner} alt="" />
       </Flex>
-      <Flex justify={"space-evenly"} gap={20} wrap></Flex>
-    </main>
+      <Layout.Content style={{ marginTop: 30 }}>
+        <HomeBanner />
+      </Layout.Content>
+    </Layout>
   );
 }

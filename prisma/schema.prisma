@@ -37,7 +37,6 @@ model Profile {
   image       String?     @db.Text
   jobposition String      @db.VarChar(255)
 
-
   @@map("profiles")
 }
 
@@ -57,7 +56,6 @@ model Experience {
   profileId   Int     @unique
   name        String  @db.VarChar(255)
   description String  @db.VarChar(255)
-
 
   @@map("experience")
 }
@@ -152,6 +150,4 @@ model TranslateCategory {
   id Int @id @default(autoincrement())
   category Category @relation(fields: [categoryId], references:[id])
   categoryId Int @unique
-  name String @db.VarChar(100)
-  description String @db.VarChar(255)
 }

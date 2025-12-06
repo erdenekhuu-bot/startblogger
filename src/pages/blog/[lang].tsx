@@ -17,6 +17,7 @@ import dynamic from "next/dynamic";
 import { useSession } from "next-auth/react";
 import { ZUSTAND } from "@/zustand";
 import { useRouter } from "next/router";
+import useTranslation from "@/hooks/useTranslation";
 
 const CkEditor = dynamic(() => import("@/components/CKEditor"), { ssr: false });
 
@@ -41,6 +42,7 @@ export default function Page() {
   const [fileList, setFileList] = useState<any[]>([]);
   const [datasource, setCategory] = useState([]);
   const { categoryId, getCategoryId } = ZUSTAND();
+  const { t } = useTranslation();
 
   const handleOnUpdate = (editor: string, field: string): void => {
     if (field === "description") {
@@ -105,26 +107,28 @@ export default function Page() {
           onFinish={onFinish}
           layout="vertical"
         >
-          <Form.Item name="title" label="Blog title">
-            <Input size="large" placeholder="Enter title" />
+          <Form.Item name="title" label={t("blog_title")}>
+            <Input size="large" />
           </Form.Item>
 
           <div className="my-2">
-            <Select
-              style={{ width: 200 }}
-              onChange={(value) => {
-                getCategoryId(value);
-              }}
-              options={convertUtil(datasource)}
-              filterOption
-            />
+            <Form.Item label={t("category")}>
+              <Select
+                style={{ width: 200 }}
+                onChange={(value) => {
+                  getCategoryId(value);
+                }}
+                options={convertUtil(datasource)}
+                filterOption
+              />
+            </Form.Item>
           </div>
 
-          <Form.Item name="meta" label="Blog meta">
-            <Input.TextArea rows={4} placeholder="Meta description" />
+          <Form.Item name="meta" label={t("meta")}>
+            <Input.TextArea rows={4} />
           </Form.Item>
 
-          <Form.Item name="metaImage" label="Upload Images">
+          <Form.Item name="metaImage" label={t("Upload_image")}>
             <Upload
               onChange={handleUploadChange}
               fileList={fileList}
@@ -135,7 +139,7 @@ export default function Page() {
             </Upload>
           </Form.Item>
 
-          <Form.Item name="content" label="Blog content">
+          <Form.Item name="content" label={t("blog_content")}>
             <CkEditor
               editorData={editorData}
               setEditorData={setEditorData}
