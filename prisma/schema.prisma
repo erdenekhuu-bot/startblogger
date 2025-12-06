@@ -37,6 +37,7 @@ model Profile {
   image       String?     @db.Text
   jobposition String      @db.VarChar(255)
 
+
   @@map("profiles")
 }
 
@@ -57,6 +58,7 @@ model Experience {
   name        String  @db.VarChar(255)
   description String  @db.VarChar(255)
 
+
   @@map("experience")
 }
 
@@ -71,6 +73,7 @@ model Post {
   profileId Int
   view      Int        @default(0)
   created   DateTime   @default(now())
+  lang      TranslationPost?
 
   @@map("posts")
 }
@@ -80,6 +83,7 @@ model Category {
   name String @db.VarChar(100)
   description String @db.VarChar(255)
   post        Post[]
+  lang      TranslateCategory?
 
   @@map("category")
 }
@@ -133,4 +137,21 @@ model Team {
   user User[]
 
   @@map("teams")
+}
+
+model TranslationPost {
+  id Int @id @default(autoincrement())
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId Int @unique
+  title     String     @db.VarChar(100)
+  meta      String     @db.VarChar(255)
+  content   String     @db.Text
+}
+
+model TranslateCategory {
+  id Int @id @default(autoincrement())
+  category Category @relation(fields: [categoryId], references:[id])
+  categoryId Int @unique
+  name String @db.VarChar(100)
+  description String @db.VarChar(255)
 }

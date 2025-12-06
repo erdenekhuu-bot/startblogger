@@ -16,10 +16,11 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useSession } from "next-auth/react";
 import { ZUSTAND } from "@/zustand";
+import { useRouter } from "next/router";
 
 const CkEditor = dynamic(() => import("@/components/CKEditor"), { ssr: false });
 
-export const convertUtil = (data: any[]) => {
+const convertUtil = (data: any[]) => {
   const converting = data.map((index: any) => {
     return {
       value: index.id,
@@ -30,6 +31,8 @@ export const convertUtil = (data: any[]) => {
 };
 
 export default function Page() {
+  const router = useRouter();
+  const { lang } = router.query;
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
   const { data: session } = useSession();
@@ -56,6 +59,7 @@ export default function Page() {
     const data = await response.json();
     setCategory(data);
   };
+
   const onFinish: FormProps["onFinish"] = async (values) => {
     const formData = new FormData();
     formData.append("title", values.title);
@@ -63,6 +67,7 @@ export default function Page() {
     formData.append("content", editorData);
     formData.append("categoryId", String(categoryId));
     formData.append("profileId", Number(session?.user?.id));
+    formData.append("lang", String(lang));
 
     fileList.forEach((file) => {
       formData.append("metaImage", file.originFileObj);

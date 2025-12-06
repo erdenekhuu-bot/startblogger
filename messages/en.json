@@ -5,5 +5,9 @@
   "send": "Send",
   "signIn": "Sign In",
   "signUp": "Sign Up",
-  "signOut": "Sign Out"
+  "signOut": "Sign Out",
+  "home": "Home",
+  "startup": "Startups",
+  "ecosystem": "Ecosystem",
+  "footer": "Created by Ant UED"
 }

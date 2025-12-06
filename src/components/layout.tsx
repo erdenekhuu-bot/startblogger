@@ -4,15 +4,13 @@ import { Layout, Menu } from "antd";
 import { headerStyles, contentStyle } from "@/styles/header";
 import { useRouter } from "next/navigation";
 import SessionProviders from "./SessionProvider";
-import {SignUser} from "@/components/loginwindow/signuser";
+import { SignUser } from "@/components/loginwindow/signuser";
+import useTranslation from "@/hooks/useTranslation";
 
 const { Header, Content, Footer } = Layout;
 
-export default function MainLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function MainLayout({ children }: { children: ReactNode }) {
+  const { t } = useTranslation();
   const router = useRouter();
   return (
     <SessionProviders>
@@ -24,28 +22,28 @@ export default function MainLayout({
             items={[
               {
                 key: "1",
-                label: "Home",
+                label: t("home"),
                 onClick: () => {
                   router.push("/");
                 },
               },
               {
                 key: "2",
-                label: "Startups",
+                label: t("startup"),
                 onClick: () => {
                   router.push("/startup");
                 },
               },
               {
                 key: "3",
-                label: "Ecosystem",
+                label: t("ecosystem"),
                 onClick: () => {
                   router.push("/ecosystem");
                 },
               },
               {
                 key: "4",
-                label: "Contact",
+                label: t("contact"),
                 onClick: () => {
                   router.push("/contact");
                 },
@@ -59,7 +57,7 @@ export default function MainLayout({
           <div style={contentStyle}>{children}</div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
+          Ant Design ©{new Date().getFullYear()} {t("footer")}
         </Footer>
       </Layout>
     </SessionProviders>
