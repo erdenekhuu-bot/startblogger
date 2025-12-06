@@ -44,7 +44,7 @@ export default async function handler(
         },
       });
 
-      return res.status(201).json({ success: true, data: profile.userId });
+      return res.status(201).send(profile.userId);
 
     default:
       return res

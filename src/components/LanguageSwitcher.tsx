@@ -1,23 +1,24 @@
-import { useRouter } from 'next/router';
-import { Button } from "antd";
+"use client";
+import { useRouter } from "next/router";
+import { Button, Switch } from "antd";
 
 const LanguageSwitcher = () => {
-    const router = useRouter();
-    const { locales, locale } = router;
+  const router = useRouter();
+  const { locales, locale } = router;
 
-    const changeLanguage = (lng: string) => {
-        router.push(router.asPath, undefined, { locale: lng });
-    };
+  const changeLanguage = (checked: boolean) => {
+    const newLocale = checked ? "en" : "mn";
+    router.push(router.asPath, undefined, { locale: newLocale });
+  };
 
-    return (
-        <div>
-            {locales?.map((lng) => (
-                <Button key={lng} onClick={() => changeLanguage(lng)}>
-                    {lng.toUpperCase()}
-                </Button>
-            ))}
-        </div>
-    );
+  return (
+    <Switch
+      checkedChildren="en"
+      unCheckedChildren="mn"
+      checked={locale === "en"}
+      onChange={changeLanguage}
+    />
+  );
 };
 
 export default LanguageSwitcher;

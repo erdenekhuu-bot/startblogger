@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Form, Input, Flex, message } from "antd";
+import { Button, Form, Input, Flex, message, Layout } from "antd";
 import type { FormProps } from "antd";
 import { useRouter } from "next/navigation";
 import { ZUSTAND } from "@/zustand";
@@ -33,7 +33,7 @@ export default function Page() {
   };
 
   return (
-    <section className="w-full h-full">
+    <Layout.Content className="w-full h-full">
       {contextHolder}
       <Flex align={"center"} justify={"center"}>
         <Form form={form} onFinish={onFinish}>
@@ -92,6 +92,6 @@ export default function Page() {
           </Button>
         </Form>
       </Flex>
-    </section>
+    </Layout.Content>
   );
 }

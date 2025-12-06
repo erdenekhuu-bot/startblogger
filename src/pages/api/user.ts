@@ -21,9 +21,9 @@ export default async function handler(
           const user = await prisma.user.create({
             data: { username, email, password: hashedPassword },
           });
-          return res.status(201).json(user.id);
+          return res.status(201).send(user.id);
         }
-        return res.status(403).json(-1);
+        return res.status(403).send(-1);
       }
 
       case "GET": {

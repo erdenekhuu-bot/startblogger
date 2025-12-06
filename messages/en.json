@@ -2,5 +2,8 @@
   "greeting": "Hello",
   "welcome_message": "Welcome to our application!",
   "contact": "Contact Us",
-  "send": "Send"
+  "send": "Send",
+  "signIn": "Sign In",
+  "signUp": "Sign Up",
+  "signOut": "Sign Out"
 }

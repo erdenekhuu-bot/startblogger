@@ -27,10 +27,18 @@ export default async function handler(
       return res.status(500).json({ error: "Failed to parse form data" });
     }
 
-    const { title, meta, content } = fields;
+    const { title, meta, content, categoryId, profileId } = fields;
     const uploadedFiles: any = files.metaImage;
     const publicDir = path.join(process.cwd(), "public", "images");
     const savedFilePaths: string[] = [];
+
+    const checkout = await prisma.profile.findUnique({
+      where: {
+        userId: Number(profileId),
+      },
+    });
+
+    if (!checkout) res.status(404).send(0);
 
     for (const file of uploadedFiles) {
       const tempPath = file.filepath;
@@ -41,21 +49,21 @@ export default async function handler(
       savedFilePaths.push(`/` + fileName);
     }
 
-    console.log("Title:", title);
-    console.log("Meta:", meta);
-    console.log("Content:", content);
-    console.log("Files:", uploadedFiles);
-
-    await prisma.post.create({
+    const post = await prisma.post.create({
       data: {
         title: String(title),
         meta: String(meta),
         content: String(content),
         metaImage: String(savedFilePaths),
-        profileId: 1,
+        profileId: Number(profileId),
+        category: {
+          connect: {
+            id: Number(categoryId),
+          },
+        },
       },
     });
 
-    res.status(200).json({ success: true, message: "Blog received" });
+    res.status(201).send(post.id);
   });
 }

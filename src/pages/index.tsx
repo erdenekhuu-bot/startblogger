@@ -8,7 +8,6 @@ import banner from "../../public/banner.png";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -22,11 +21,11 @@ const geistMono = Geist_Mono({
 export default function Home() {
   const { t } = useTranslation();
   return (
-    <section className={`${geistSans} ${geistMono}`}>
+    <main className={`${geistSans} ${geistMono}`}>
       <Flex justify={"center"} align={"center"}>
         <Image src={banner} alt="" />
       </Flex>
       <Flex justify={"space-evenly"} gap={20} wrap></Flex>
-    </section>
+    </main>
   );
 }
