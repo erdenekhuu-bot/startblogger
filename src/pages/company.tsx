@@ -64,6 +64,11 @@ export default function Page() {
     formData.append("meta", values.meta);
     formData.append("about", values.about);
     formData.append("profileId", Number(session?.user?.id));
+    formData.append("amount", values.amount);
+    formData.append("web", values.web);
+    formData.append("address", values.address);
+    formData.append("companytypeId", values.companytypeId);
+
     fileList.forEach((file) => {
       formData.append("background", file.originFileObj);
     });
@@ -77,12 +82,11 @@ export default function Page() {
     });
 
     const response = await request.json();
-    console.log(response);
-    // if (response > 0) {
-    //   messageApi.success("Your post created");
-    // } else {
-    //   messageApi.success("Something has wrong");
-    // }
+    if (response > 0) {
+      messageApi.success("Your post created");
+    } else {
+      messageApi.success("Something has wrong");
+    }
   };
 
   const detail = async () => {
@@ -117,7 +121,7 @@ export default function Page() {
           </Form.Item>
 
           <div className="my-2">
-            <Form.Item label="Company type">
+            <Form.Item label="Company type" name="companytypeId">
               <Select
                 style={{ width: 200 }}
                 onChange={(value) => {
@@ -163,7 +167,7 @@ export default function Page() {
             <Input />
           </Form.Item>
           <Form.Item label="Address" name="address">
-            <Input />
+            <Input.TextArea />
           </Form.Item>
           <Flex justify="center">
             <Button type="primary" size="large" onClick={() => form.submit()}>
