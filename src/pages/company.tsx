@@ -1,11 +1,31 @@
 "use client";
-import { Flex, Layout, Button, Form, message, Input, Upload } from "antd";
+import {
+  Flex,
+  Layout,
+  Button,
+  Form,
+  message,
+  Input,
+  Upload,
+  Select,
+} from "antd";
 import type { FormProps } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import useTranslation from "@/hooks/useTranslation";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import { ZUSTAND } from "@/zustand";
+
+const convertUtil = (data: any[]) => {
+  const converting = data.map((index: any) => {
+    return {
+      value: index.id,
+      label: index.name,
+    };
+  });
+  return converting;
+};
 
 const CkEditor = dynamic(() => import("@/components/CKEditor"), { ssr: false });
 
@@ -18,6 +38,8 @@ export default function Page() {
   const [messageApi, contextHolder] = message.useMessage();
   const [datas, setData] = useState<string>("");
   const { data: session } = useSession();
+  const [datasource, setCompanyType] = useState<any>([]);
+  const { getCategoryId, categoryId } = ZUSTAND();
 
   const handleUploadChange = (info: any) => {
     if (info.fileList.length <= 1) {
@@ -42,7 +64,6 @@ export default function Page() {
     formData.append("meta", values.meta);
     formData.append("about", values.about);
     formData.append("profileId", Number(session?.user?.id));
-
     fileList.forEach((file) => {
       formData.append("background", file.originFileObj);
     });
@@ -63,6 +84,21 @@ export default function Page() {
     //   messageApi.success("Something has wrong");
     // }
   };
+
+  const detail = async () => {
+    const response = await fetch("/api/company/type", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    setCompanyType(data);
+  };
+
+  useEffect(() => {
+    detail();
+  }, [Number(session?.user.id)]);
   return (
     <Layout.Content>
       {contextHolder}
@@ -76,6 +112,22 @@ export default function Page() {
           <Form.Item label={t("company_name")} name="name">
             <Input />
           </Form.Item>
+          <Form.Item label="Company asset amount" name="amount">
+            <Input type="number" />
+          </Form.Item>
+
+          <div className="my-2">
+            <Form.Item label="Company type">
+              <Select
+                style={{ width: 200 }}
+                onChange={(value) => {
+                  getCategoryId(value);
+                }}
+                options={convertUtil(datasource)}
+                filterOption
+              />
+            </Form.Item>
+          </div>
 
           <Form.Item label="Backgroud image" name="background">
             <Upload
