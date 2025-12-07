@@ -34,47 +34,45 @@ export function HomeBanner() {
   }, []);
 
   return (
-    <section>
-      <Flex justify="space-between">
-        <section>
-          {otherBanner?.map((item: any) => (
-            <div className="w-[300px] m-4">
-              <div>
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/images/${item.metaImage}`}
-                  height={200}
-                />
-              </div>
-              {item?.category?.map((item: any) => (
-                <p key={item.id} className="text-[#020B75] font-bold text-2xl">
-                  {item.name}
-                </p>
-              ))}
-              <p className="font-black text-xl">{item.title}</p>
-              <p className="text-[#020B75] text-lg">
-                {item?.profile?.user.username}
-              </p>
+    <Flex justify="space-between">
+      <section>
+        {otherBanner?.map((item: any) => (
+          <div className="w-[300px] m-4">
+            <div>
+              <Image
+                src={`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/images/${item.metaImage}`}
+                height={200}
+              />
             </div>
-          ))}
-        </section>
-        <div className="w-[400px]">
-          <div>
-            <Image
-              src={`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/images/${mainBanner?.metaImage}`}
-            />
-          </div>
-          {mainBanner?.category?.map((item: any) => (
-            <p key={item.id} className="text-[#020B75] font-bold text-2xl">
-              {item.name}
+            {item?.category?.map((item: any) => (
+              <p key={item.id} className="text-[#020B75] font-bold text-2xl">
+                {item.name}
+              </p>
+            ))}
+            <p className="font-black text-xl">{item.title}</p>
+            <p className="text-[#020B75] text-lg">
+              {item?.profile?.user.username}
             </p>
-          ))}
-          <p className="font-black text-2xl">{mainBanner?.title}</p>
-          <p className="text-[#020B75] text-lg">
-            {mainBanner?.profile?.user.username}
-          </p>
+          </div>
+        ))}
+      </section>
+      <div className="w-[400px]">
+        <div>
+          <Image
+            src={`${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/images/${mainBanner?.metaImage}`}
+          />
         </div>
-        <ThirdBanner />
-      </Flex>
-    </section>
+        {mainBanner?.category?.map((item: any) => (
+          <p key={item.id} className="text-[#020B75] font-bold text-2xl">
+            {item.name}
+          </p>
+        ))}
+        <p className="font-black text-2xl">{mainBanner?.title}</p>
+        <p className="text-[#020B75] text-lg">
+          {mainBanner?.profile?.user.username}
+        </p>
+      </div>
+      <ThirdBanner />
+    </Flex>
   );
 }

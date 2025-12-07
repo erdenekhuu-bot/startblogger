@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Flex, Image } from "antd";
+import itembanner from "../../../public/itembanner.svg";
 
 export function ThirdBanner() {
   const [otherBanner, setOther] = useState([]);
@@ -31,7 +32,7 @@ export function ThirdBanner() {
       <p className="text-3xl font-black text-[#020B75] my-4">Их уншсан</p>
       {otherBanner?.map((item: any, index: number) => (
         <Flex style={{ marginTop: 10 }}>
-          <Image src="itembanner.svg" />
+          <Image src={itembanner.src} />
           <p key={index} className="font-bold text-[#020B75] text-2xl">
             {index + 1}
           </p>

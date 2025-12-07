@@ -9,7 +9,11 @@ export default async function handler(
 ) {
   switch (req.method) {
     case "GET":
-      const record = await prisma.companyType.findMany();
+      const record = await prisma.companyType.findMany({
+        include: {
+          company: true,
+        },
+      });
       return res.status(200).send(record);
     case "POST":
       const { name, description } = req.body;
