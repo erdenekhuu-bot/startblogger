@@ -94,11 +94,11 @@ model Company {
   background String @db.Text
   meta       String @db.VarChar(255)
   about      String @db.Text
-  video      String @db.Text
 
   detail   DetailCompany?
   currency Currency?
   type     CompanyType[]
+  attribute Int   @default(1)
 
   @@map("company")
 }
@@ -109,15 +109,15 @@ model DetailCompany {
   created   DateTime @updatedAt
   web       String
   address   String   @db.VarChar(100)
-  about     String   @db.VarChar(255)
 
   @@map("detailcompany")
 }
 
 model CompanyType {
-  id      Int       @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
+  name String @db.VarChar(100)
+  description String @db.VarChar(255)
   company Company[]
-  name    String    @db.VarChar(100)
 
   @@map("companytype")
 }
