@@ -2,8 +2,10 @@
 import { useState, useEffect } from "react";
 import { Flex, Image } from "antd";
 import itembanner from "../../../public/itembanner.svg";
+import useTranslation from "@/hooks/useTranslation";
 
 export function ThirdBanner() {
+  const { t } = useTranslation();
   const [otherBanner, setOther] = useState([]);
   const [pagination, setPagination] = useState({
     current: 1,
@@ -29,7 +31,9 @@ export function ThirdBanner() {
   }, []);
   return (
     <div>
-      <p className="text-3xl font-black text-[#020B75] my-4">Их уншсан</p>
+      <p className="text-3xl font-black text-[#020B75] my-4">
+        {t("most_rode")}
+      </p>
       {otherBanner?.map((item: any, index: number) => (
         <Flex style={{ marginTop: 10 }}>
           <Image src={itembanner.src} />

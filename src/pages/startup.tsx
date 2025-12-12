@@ -2,9 +2,11 @@
 import { Input, Flex, Table, Button, Layout, Image } from "antd";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import useTranslation from "@/hooks/useTranslation";
 
 export default function Page() {
   const [datalist, setData] = useState([]);
+  const { t } = useTranslation();
   const router = useRouter();
   const [search, setSearch] = useState("");
   const [pagination, setPagination] = useState({
@@ -39,7 +41,7 @@ export default function Page() {
 
   return (
     <Layout.Content>
-      <p className="my-4 font-bold text-2xl text-[#020B75]">Search startups</p>
+      <p className="my-4 font-bold text-2xl text-[#020B75]">{t("search")}</p>
       <Flex gap={30}>
         <Input.Search
           onChange={(e) => {
@@ -47,7 +49,7 @@ export default function Page() {
           }}
         />
         <Button type="primary" onClick={() => router.push("/company")}>
-          Create company
+          {t("create_company")}
         </Button>
       </Flex>
       <Table
